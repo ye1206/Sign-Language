@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 import cv2
 import mediapipe as mp
 import numpy as np
 import joblib
+from utils.new_put_text import cv2_chinese_text
+
 
 # Initialize mediapipe Hands Detection
 mp_hands = mp.solutions.hands
@@ -51,6 +54,7 @@ while True:
 
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = hands.process(rgb_frame)
+    display_text = ''
 
     if results.multi_hand_landmarks:
         for index, landmarks in enumerate(results.multi_hand_landmarks):
@@ -66,12 +70,17 @@ while True:
             label = labels[prediction[0]]
             display_text = f"{hand_label} Hand: {label} ({confidence*100:.2f}%)"
 
-            cv2.putText(frame, display_text, (10, 30 + (index * 40)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            # cv2.putText(frame, display_text, (10, 30 + (index * 40)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
             # To visualize the landmarks of the hand
             mp.solutions.drawing_utils.draw_landmarks(frame, landmarks, mp_hands.HAND_CONNECTIONS)
 
-    cv2.imshow('Demo', frame)
+
+    img = cv2_chinese_text(frame, display_text, 10, 30, (0, 255, 0))
+    cv2.imshow('Demo', img)
+
+    # cv2.imshow('Demo', frame)
+    # cv2.imshow('Demo', img)
 
     if cv2.waitKey(1) & 0xFF == 27:  # ESC key
         break

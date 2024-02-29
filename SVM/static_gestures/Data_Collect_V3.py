@@ -1,4 +1,5 @@
-# 修改后的代码
+# -*- coding: utf-8 -*-
+# 收集資料
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -65,12 +66,9 @@ while True:
     results = hands.process(rgb_frame)
 
     if results.multi_hand_landmarks and collecting:
-        for hand_landmarks in results.multi_hand_landmarks:
-            distances = compute_distances(hand_landmarks)
-            # 获取手的位置坐标
-            hand_landmark_positions = np.array([[landmark.x, landmark.y] for landmark in hand_landmarks.landmark])
-            # 存储手的位置坐标和手指之间的距离
-            data_collection.append((hand_landmark_positions, distances))
+        for landmarks in results.multi_hand_landmarks:
+            distances = compute_distances(landmarks)
+            data_collection.append(distances)
 
     cv2.imshow("Data Collection", frame)
     key = cv2.waitKey(1)
