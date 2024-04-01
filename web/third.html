@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+ 
+  <head>
+    <title>網站名稱</title>
+    <style>
+        .button {
+          background-color: #fff;
+          border: none;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          width: 100px; 
+          height: 40px;
+          font-size: 16px;
+          transition-duration: 0.4s;/*確定懸停的速度*/
+          cursor: pointer;/*改變滑鼠*/
+        }
+        .button:hover {/*陰影按鈕*/
+          box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+          }
+        .button2 {
+          background-color: #fff;
+        }
+        .button3 {
+          background-color: #fff;
+        }
+        .button4 {
+          background-color: #fff;
+        }
+        div.relative {
+        position: fixed;
+        top:0px;/*按鈕位置*/
+        right: 0px;/*按鈕位置*/
+        }
+        .div1 {
+          position: absolute;
+          background-color: #fff5ed;
+          width: 600px;
+          height: 240px;  
+          padding: 50px;
+          margin-left: 100px;
+          text-align: center;
+        }
+        .div2 { 
+          background-color: #fff5ed;
+          width: 200px;
+          height: 260px;  
+          padding: 40px;
+          margin-left: 950px;
+          text-align: center;
+        }
+        .relative2{
+          position: absolute;
+          left: 110px;
+          bottom: 40px;
+        }
+      </style>
+  </head>
+   
+  <body>
+    <h1>教學影片</h1>
+    <div class="relative">
+      <a href="first.html"><button class="button">主畫面</button></a><!--記得更改連結-->
+      <a href="second.html"><button class="button button2">手語翻譯</button></a><!--記得更改連結-->
+      <a href="third.html"><button class="button button3">手語教學</button></a><!--記得更改連結-->
+      <a href="fourth.html"><button class="button button4">手語測驗</button></a><!--記得更改連結-->
+    </div>
+
+    <br><br>
+    <div class="div1">影像位置</div>
+    <div class="div2">其他影片位置</div>
+    <div class="relative2">
+      <h3>影片名稱</h3>
+    </div>
+
+    <body bgcolor="#D6DFCC"></body>
+  </body>
+</html>
