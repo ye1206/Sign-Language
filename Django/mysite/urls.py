@@ -22,16 +22,9 @@ from django.conf.urls.static import static
 from mysite.core import views
 
 urlpatterns = [
-    path('', views.Home.as_view(), name='home'),
-
-    # four links according to the four bottons
-    path('image_upload/', views.image_upload_view, name='image_upload'),
-    path('video_input/', views.video_input, name='video_input'),
-    path('video_input/video_stream', views.video_stream,
-         name='video_input/video_stream'),
-    path('video_input/video_save', views.video_save,
-         name='video_input/video_save'),
-    path('demo/', views.demo, name='demo'),
+    path('', views.Home.as_view(), name='index'),
+    path('test/', views.test, name='test'),
+    path('tutorial/', views.tutorial, name='tutorial'),
     path('admin/', admin.site.urls),
 ]
 

@@ -21,7 +21,7 @@ from django.http import JsonResponse
 
 
 class Home(TemplateView):
-    template_name = 'home.html'
+    template_name = 'index.html'
 
 
 def image_upload_view(request):
@@ -178,8 +178,12 @@ class VideoCamera(object):
         return jpeg.tobytes()
 
 
-def demo(request):
+def test(request):
     context = {
         'display_text': 'Placeholder text'  # 預設的文字，以防止首次載入時沒有文字
     }
-    return render(request, 'demo.html', context)
+    return render(request, 'test.html', context)
+
+
+def tutorial(request):
+    return render(request, 'tutorial.html')
