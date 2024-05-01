@@ -1,59 +1,51 @@
+
 <!DOCTYPE html>
 <html>
-<head>
+ 
+  <head>
+    <title>網站名稱</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
+      .button {
+        background-color: #fff;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        width: 150px; 
+        height: 50px;
+        transition-duration: 0.4s;/*確定懸停的速度*/
+        cursor: pointer;/*改變滑鼠*/
+      }
+      .button:hover {/*陰影按鈕*/
+          box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+          }
 
-        .sidebar {
-            height: 100%;
-            width: 200px; /* Set the width of the sidebar */
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            padding-top: 60px;
-        }
+      .button2, .button3 {
+        background-color: #e6e6e6;
+        flex: 1; /* 讓按鈕平均分配 .relative 元素的寬度 */
+        margin: 10px 30px; /* 為按鈕添加邊距，以避免它們相鄰 */
+        border-radius: 12px; /* 將按鈕的邊角設為圓角 */
+    }
 
-        .sidebar a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
+      .relative {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: space-around;
+    }
+      </style>
+  </head>
+   
+  <body>
+    <br><br><br><br><br><br><br>
+    <h1 style="font-size:60px;" align="center">網站名稱</h1>
 
-        .sidebar a:hover {
-            color: #f1f1f1;
-        }
+    <div class = "relative">
+      <a href="{% url 'tutorial' %}"><button class="button button2" style="font-size:25px;">手語教學</button></a><!--記得更改連結-->
+      <a href="{% url 'test' %}"><button class="button button3" style="font-size:25px;">手語測驗</button></a><!--記得更改連結-->
+    </div>
 
-        .content {
-            margin-left: 250px; /* Same as the width of the sidebar */
-            padding: 1em;
-            flex-grow: 1;
-        }
-    </style>
-</head>
-<body>
-
-<div id="mySidebar" class="sidebar">
-  <a href="/">首頁</a>
-  <a href="{% url 'tutorial' %}">手語教學</a>
-  <a href="{% url 'test' %}">手語測驗</a>
-  <a href="#">More</a>
-</div>
-
-<div class="content">
-  <h1>[Web Name]</h1>
-  <p>This is some content.</p>
-</div>
-
-</body>
+    <body bgcolor="#fff"></body>
+  </body>
 </html>
