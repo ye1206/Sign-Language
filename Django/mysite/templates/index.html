@@ -1,9 +1,11 @@
-
 <!DOCTYPE html>
+<html lang="zh-Hant-TW" dir="ltr"></html>
 <html>
  
   <head>
     <title>網站名稱</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'icon.svg' %}">
     <style>
       .button {
         background-color: #fff;
@@ -13,12 +15,12 @@
         display: inline-block;
         width: 150px; 
         height: 50px;
-        transition-duration: 0.4s;/*確定懸停的速度*/
-        cursor: pointer;/*改變滑鼠*/
+        transition-duration: 0.4s; /*確定懸停的速度*/
+        cursor: pointer; /*改變滑鼠*/
       }
-      .button:hover {/*陰影按鈕*/
+      .button:hover { /*陰影按鈕*/
           box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-          }
+      }
 
       .button2, .button3 {
         background-color: #e6e6e6;
@@ -33,19 +35,27 @@
         transform: translateX(-50%);
         display: flex;
         justify-content: space-around;
+    }      
+
+    img {
+      width: 450px;
+      height: auto;
+      display: block;
+      margin: auto;
     }
       </style>
   </head>
    
   <body>
     <br><br><br><br><br><br><br>
-    <h1 style="font-size:60px;" align="center">網站名稱</h1>
+    {% load static %}
+    <img id="logo" src = "{% static 'logo.png' %}" alt="learn together"/>
 
     <div class = "relative">
       <a href="{% url 'tutorial' %}"><button class="button button2" style="font-size:25px;">手語教學</button></a><!--記得更改連結-->
       <a href="{% url 'test' %}"><button class="button button3" style="font-size:25px;">手語測驗</button></a><!--記得更改連結-->
     </div>
 
-    <body bgcolor="#fff"></body>
+    <body bgcolor="#FFEED4"></body>
   </body>
 </html>

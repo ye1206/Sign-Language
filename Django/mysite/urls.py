@@ -25,6 +25,10 @@ urlpatterns = [
     path('', views.Home.as_view(), name='index'),
     path('test/', views.test, name='test'),
     path('tutorial/', views.tutorial, name='tutorial'),
+    path('tutorialGreet/', views.tutorialGreet, name='tutorialGreet'),
+    path('tutorialMeat/', views.tutorialMeat, name='tutorialMeat'),
+    path('tutorialLeisure/', views.tutorialLeisure, name='tutorialLeisure'),
+    path('tutorialRelation/', views.tutorialRelation, name='tutorialRelation'),
     path('admin/', admin.site.urls),
 ]
 

@@ -187,3 +187,19 @@ def test(request):
 
 def tutorial(request):
     return render(request, 'tutorial.html')
+
+
+def tutorialGreet(request):
+    return render(request, 'tutorialGreet.html')
+
+
+def tutorialMeat(request):
+    return render(request, 'tutorialMeat.html')
+
+
+def tutorialLeisure(request):
+    return render(request, 'tutorialLeisure.html')
+
+
+def tutorialRelation(request):
+    return render(request, 'tutorialRelation.html')
