@@ -31,7 +31,8 @@
 
       .relative {
         position: absolute;
-        left: 50%;
+        left: 25%;
+        bottom: 30%;
         transform: translateX(-50%);
         display: flex;
         justify-content: space-around;
@@ -43,19 +44,23 @@
       display: block;
       margin: auto;
     }
+
+    body{
+      background-image: url("{% static 'background.png' %}");
+      background-size: cover;
+    }
+    
       </style>
   </head>
    
   <body>
     <br><br><br><br><br><br><br>
     {% load static %}
-    <img id="logo" src = "{% static 'logo.png' %}" alt="learn together"/>
 
     <div class = "relative">
       <a href="{% url 'tutorial' %}"><button class="button button2" style="font-size:25px;">手語教學</button></a><!--記得更改連結-->
       <a href="{% url 'test' %}"><button class="button button3" style="font-size:25px;">手語測驗</button></a><!--記得更改連結-->
     </div>
 
-    <body bgcolor="#FFEED4"></body>
   </body>
 </html>
