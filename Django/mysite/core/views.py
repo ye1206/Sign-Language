@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
+from django.db import connection
+from django.contrib import messages
 
 
 from .forms import ImageForm
@@ -203,3 +205,57 @@ def tutorialLeisure(request):
 
 def tutorialRelation(request):
     return render(request, 'tutorialRelation.html')
+
+
+def register(request):  # 註冊頁面
+    if request.method == "POST":
+        title = request.POST.get("title")  # get the title
+        pwd = request.POST.get("pwd")  # get the password
+        pwd = int(pwd)  # turn the password to int
+        name = request.POST.get("name")  # get the name
+
+        with connection.cursor() as cursor:  # 連接資料庫
+            cursor.execute(
+                # 將註冊資訊新增到資料庫
+                "INSERT INTO cart_user (pwd, title, name) VALUES (%s, %s, %s)",
+                [pwd, title, name],
+            )
+            cursor.execute("SELECT LAST_INSERT_ID()")  # select 出最後一筆資料的id
+            result = cursor.fetchone()  # 取得最後一筆資料的id
+            if result is not None:  # 註冊成功
+                no = result[0]
+            else:
+                messages.error(request, "註冊失敗，請再試一次。")
+
+        return redirect("/")  # 回傳登入頁面
+
+    # 渲染context內容到register.html
+    return render(request, "register.html", context={"title": "註冊"})
+
+
+def testGreet(request):
+    context = {
+        'display_text': 'Placeholder text'  # 預設的文字，以防止首次載入時沒有文字
+    }
+    return render(request, 'testGreet.html', context)
+
+
+def testMeat(request):
+    context = {
+        'display_text': 'Placeholder text'  # 預設的文字，以防止首次載入時沒有文字
+    }
+    return render(request, 'testMeat.html', context)
+
+
+def testLeisure(request):
+    context = {
+        'display_text': 'Placeholder text'  # 預設的文字，以防止首次載入時沒有文字
+    }
+    return render(request, 'testLeisure.html', context)
+
+
+def testRelation(request):
+    context = {
+        'display_text': 'Placeholder text'  # 預設的文字，以防止首次載入時沒有文字
+    }
+    return render(request, 'testRelation.html', context)

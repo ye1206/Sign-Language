@@ -29,6 +29,11 @@ urlpatterns = [
     path('tutorialMeat/', views.tutorialMeat, name='tutorialMeat'),
     path('tutorialLeisure/', views.tutorialLeisure, name='tutorialLeisure'),
     path('tutorialRelation/', views.tutorialRelation, name='tutorialRelation'),
+    path('testGreet', views.testGreet, name='testGreet'),
+    path('testMeat', views.testMeat, name='testMeat'),
+    path('testLeisure', views.testLeisure, name='testLeisure'),
+    path('testRelation', views.testRelation, name='testRelation'),
+    path('register/', views.register, name='register'),
     path('admin/', admin.site.urls),
 ]
 
