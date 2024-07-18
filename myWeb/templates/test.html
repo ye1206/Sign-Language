@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手語測驗</title>
+    <style media="screen">
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #c9d4a3;
+        padding: 20px;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 800px;
+        gap: 40px;
+      }
+      .item {
+        text-align: center;
+        width: calc(33.33% - 40px);
+        min-width: 200px;
+      }
+      .item:nth-child(4), .item:nth-child(5) {
+        margin-top: 40px;
+      }
+      .image-button {
+        border-radius: 12px; /* 將按鈕的邊角設為圓角 */
+        width: 100%; /*按鈕寬度*/
+        padding-bottom: 66.67%; /*按鈕高度*/
+        background-color: #fff; /*按鈕背景顏色*/
+        border: 1px solid #000; /*按鈕邊框*/
+        position: relative; /*按鈕的位置*/
+        border: none; /*按鈕邊框*/
+        display: inline-block; /*按鈕的顯示方式*/
+        transition-duration: 0.4s; /*確定懸停的速度*/
+        cursor: pointer; /*改變滑鼠*/
+      }
+      .image-button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19); /*陰影按鈕*/
+      }
+      
+      .item p {
+        margin-top: 15px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">
+        <a href="{% url 'testClass' %}"><button class="image-button" aria-label="上課日常"></button></a>
+        <p>上課日常</p>
+      </div>
+      <div class="item">
+        <a href="{% url 'testGreet' %}"><button class="image-button" aria-label="日常問候"></button></a>
+        <p>日常問候</p>
+      </div>
+      <div class="item">
+        <a href="{% url 'testMeat' %}"><button class="image-button" aria-label="吃飯日常"></button></a>
+        <p>吃飯交流</p>
+      </div>
+      <div class="item">
+        <a href="{% url 'testLeisure' %}"><button class="image-button" aria-label="休閒活動"></button></a>
+        <p>休閒活動</p>
+      </div>
+      <div class="item">
+        <a href="{% url 'testRelation' %}"><button class="image-button" aria-label="人際關係"></button></a>
+        <p>人際關係</p>
+      </div>
+    </div>
+  </body>
+</html>

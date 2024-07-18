@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" dir="ltr">
+
+</html>
+<html>
+
+<head>
+    <title>網站名稱</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'icon.svg' %}">
+    <style>
+        .button {
+            background-color: #fff;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            width: 150px;
+            height: 50px;
+            transition-duration: 0.4s;
+            /*確定懸停的速度*/
+            cursor: pointer;
+            /*改變滑鼠*/
+        }
+
+        .button:hover {
+            /*陰影按鈕*/
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .relative {
+            position: absolute;
+            left: 25%;
+            bottom: 20%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-around;
+        }
+
+        img {
+            width: 450px;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+
+        body {
+            background-image: url("{% static 'background.png' %}");
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <br><br><br><br><br><br><br>
+    {% load static %}
+
+    <div class="relative">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <h2 class="text-center mt-5">註冊新帳號</h2>
+                    <form method="post" action="/register/">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="name">帳號:</label>
+                            <input type="text" id="username" name="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">密碼:</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                        <div class="actions" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                            <button type="submit" class="btn btn-primary">送出</button>
+                            <a href="/" style="align-self: center;">已有帳號？點此登入</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日常問候</title>
+    <style media="screen">
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body{
+        min-height: 100vh;
+        background: white;
+        color: white;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .side-bar{
+        background: #1b1a1b;
+        backdrop-filter: blur(15px);
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: -250px;
+        overflow-y: auto;
+        transition: 0.6s ease;
+        transition-property: left;
+      }
+    
+      .side-bar::-webkit-scrollbar {
+        width: 0px;
+      }
+    
+      .side-bar.active{
+        left: 0;
+      }
+    
+      .side-bar .menu{
+        width: 100%;
+        margin-top: 40px;
+      }
+    
+      .side-bar .menu .item{
+        position: relative;
+        cursor: pointer;
+      }
+    
+      .side-bar .menu .item a{
+        color: #fff;
+        font-size: 16px;
+        text-decoration: none;
+        display: block;
+        padding: 15px 30px;
+        line-height: 60px;
+      }
+    
+      .side-bar .menu .item a:hover{
+        background: #33363a;
+        transition: 0.3s ease;
+      }
+    
+      .side-bar .menu .item i{
+        margin-right: 15px;
+      }
+    
+      .side-bar .menu .item a .dropdown{
+        position: absolute;
+        right: 0;
+        margin: 20px;
+        transition: 0.3s ease;
+      }
+    
+      .side-bar .menu .item .sub-menu{
+        background: #262627;
+        display: none;
+      }
+    
+      .side-bar .menu .item .sub-menu a{
+        padding-left: 80px;
+      }
+    
+      .rotate{
+        transform: rotate(90deg);
+      }
+    
+      .close-btn{
+        position: absolute;
+        color: #fff;
+        font-size: 23px;
+        right:  0px;
+        margin: 15px;
+        cursor: pointer;
+      }
+    
+      .menu-btn{
+        position: absolute;
+        color: rgb(0, 0, 0);
+        font-size: 35px;
+        margin: 25px;
+        cursor: pointer;
+      }
+    
+      header{
+        background: #33363a;
+      }
+
+      .rightside {
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0 0 0;
+      }
+
+      .button{
+        margin: 30px;
+        align-items: right;
+        
+      }
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://kit.fontawesome.com/b2cc8e312f.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+
+    <div class="menu-btn">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="side-bar">
+
+      <header>
+      <div class="close-btn">
+        <i class="fas fa-times"></i>
+      </div>
+        <h1></h1>
+      </header>
+     <div class="menu">
+      <div class="item"><a href="/">
+        <i class="fa-solid fa-house"></i>回首頁</a>
+      </div>
+        <div class="item">
+          <a class="sub-btn"><i class="fa-solid fa-film"></i>手語教學<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+            <a href="{% url 'tutorialClass' %}" class="sub-item">上課日常</a>
+            <a href="{% url 'tutorialGreet' %}" class="sub-item">日常問候</a>
+            <a href="{% url 'tutorialMeat' %}" class="sub-item">吃飯交流</a>
+            <a href="{% url 'tutorialLeisure' %}" class="sub-item">休閒活動</a>
+            <a href="{% url 'tutorialRelation' %}" class="sub-item">人際關係</a>
+          </div>
+        </div>
+        <div class="item">
+          <a class="sub-btn"><i class="fas fa-cogs"></i>手語測驗<i class="fas fa-angle-right dropdown"></i></a>
+          <div class="sub-menu">
+              <a href="{% url 'testClass' %}" class="sub-item">上課日常</a>
+              <a href="{% url 'testGreet' %}" class="sub-item">日常問候</a>
+              <a href="{% url 'testMeat' %}" class="sub-item">吃飯交流</a>
+              <a href="{% url 'testLeisure' %}" class="sub-item">休閒活動</a>
+              <a href="{% url 'testRelation' %}" class="sub-item">人際關係</a>
+          </div>
+        </div>
+        <div class="item"><a href="#"><i class="fas fa-info-circle"></i>More...</a></div>
+      </div>
+    </div>
+
+      <div class="rightside">
+        <video id="myVideo" width="400" height="300"></video>
+      </div>
+      <button id="button" onclick="startWebcam();">開啟鏡頭</button>
+    </section>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+      //jquery for toggle sub menus
+      $('.sub-btn').click(function(){
+        $(this).next('.sub-menu').slideToggle();
+        $(this).find('.dropdown').toggleClass('rotate');
+      });
+
+      //jquery for expand and collapse the sidebar
+      $('.menu-btn').click(function(){
+        $('.side-bar').addClass('active');
+        $('.menu-btn').css("visibility", "hidden");
+      });
+
+      $('.close-btn').click(function(){
+        $('.side-bar').removeClass('active');
+        $('.menu-btn').css("visibility", "visible");
+      });
+    });
+
+    let canvas
+    let ctx
+    let webcamStream
+    let video
+
+    const constraints = {
+      video: true,
+      audio: false
+    }
+
+    const init = function () {
+      // obtain canvas context for drawing
+      canvas = document.getElementById('myCanvas')
+      ctx = canvas.getContext('2d')
+    }
+
+    // get user media and start capturing video streaming
+    const startWebcam = async function () {
+      try {
+        if (!webcamStream) {
+          webcamStream = await navigator.mediaDevices.getUserMedia(constraints)
+          video = document.getElementById('myVideo')
+        }
+
+        if (typeof video.srcObject !== 'undefined') {
+          video.srcObject = webcamStream
+        } else {
+          video.src = URL.createObjectURL(webcamStream)
+        }
+
+        video.play()
+      } catch (err) {
+        console.error('error obtaining navigator.mediaDevices.getUserMedia')
+        console.error(err.message || err)
+        console.error('https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Browser_compatibility')
+      }
+    }
+
+    init()
+    </script>
+
+  </body>
+</html>
