@@ -36,5 +36,11 @@ urlpatterns = [
     path('testMeat', views.testMeat, name='testMeat'),
     path('testLeisure', views.testLeisure, name='testLeisure'),
     path('testRelation', views.testRelation, name='testRelation'),
+
+    path('testClass/stream', views.stream, name='stream'),
+    path('testGreet/stream', views.stream, name='stream'),
+    path('testMeat/stream', views.stream, name='stream'),
+    path('testLeisure/stream', views.stream, name='stream'),
+    path('testRelation/stream', views.stream, name='stream'),
     path('admin/', admin.site.urls),
 ]

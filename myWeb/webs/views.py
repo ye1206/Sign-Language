@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from .models import Login, User
 from django.contrib import messages
+from django.http import StreamingHttpResponse
+from myWeb.camera import VideoCamera, gen
 
 # Create your views here.
 
@@ -88,6 +90,11 @@ def tutorialLeisure(request):
 def tutorialRelation(request):
     return render(request, 'tutorialRelation.html')
 
+
+def stream(request):
+    width, height = 640, 480
+    return StreamingHttpResponse(gen(VideoCamera(), width, height),
+                                 content_type='multipart/x-mixed-replace; boundary=frame')
 
 def testClass(request):
     return render(request, 'testClass.html')
