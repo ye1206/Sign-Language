@@ -1,0 +1,8 @@
+及格1_left
+及格1_right
+及格2_left
+及格2_right
+有沒有1_right
+有沒有2_right
+考試1_right
+考試2_right
