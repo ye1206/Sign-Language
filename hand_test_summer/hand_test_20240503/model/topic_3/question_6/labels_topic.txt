@@ -1,0 +1,13 @@
+家_left
+家_right
+我_right
+煮1_right
+煮2_right
+煮_left
+菜1_left
+菜1_right
+菜2_left
+菜2_right
+裡1_right
+裡2_right
+裡_left

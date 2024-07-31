@@ -1,0 +1,6 @@
+你_right
+吃飯1_right
+吃飯2_right
+吃飯_left
+素_left
+素_right
