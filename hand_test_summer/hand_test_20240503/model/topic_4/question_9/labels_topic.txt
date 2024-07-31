@@ -1,0 +1,17 @@
+參加1_left
+參加1_right
+參加2_left
+參加2_right
+我_right
+會_right
+會不會1_right
+會不會_left
+活動1_left
+活動1_right
+活動2_left
+活動2_right
+運動1_left
+運動1_right
+運動2_left
+運動2_right
+那個人_right
