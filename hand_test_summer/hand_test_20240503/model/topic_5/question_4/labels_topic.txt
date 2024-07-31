@@ -1,0 +1,9 @@
+什麼1_right
+什麼2_right
+他們倆_right
+發生1_left
+發生1_right
+發生2_left
+發生2_right
+發生3_left
+發生3_right

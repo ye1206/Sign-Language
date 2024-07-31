@@ -1,0 +1,9 @@
+我們1_right
+我們2_right
+我們3_right
+有1_right
+有2_right
+誤會1_left
+誤會1_right
+誤會2_left
+誤會2_right
