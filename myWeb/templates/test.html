@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>手語測驗</title>
+    {% load static%}
     <style media="screen">
       body {
         display: flex;
@@ -29,11 +30,17 @@
       .item:nth-child(4), .item:nth-child(5) {
         margin-top: 40px;
       }
-      .image-button {
+
+      .image_Class:hover, .image_Greet:hover, .image_Meat:hover, .image_Leisure:hover, .image_Relation:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19); /*陰影按鈕*/
+      }
+
+      .image_Class {
         border-radius: 12px; /* 將按鈕的邊角設為圓角 */
         width: 100%; /*按鈕寬度*/
         padding-bottom: 66.67%; /*按鈕高度*/
-        background-color: #fff; /*按鈕背景顏色*/
+        background-image: url("{% static 'Class.png' %}");
+        background-position: center; /*按鈕背景位置*/
         border: 1px solid #000; /*按鈕邊框*/
         position: relative; /*按鈕的位置*/
         border: none; /*按鈕邊框*/
@@ -41,8 +48,61 @@
         transition-duration: 0.4s; /*確定懸停的速度*/
         cursor: pointer; /*改變滑鼠*/
       }
-      .image-button:hover {
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19); /*陰影按鈕*/
+
+      .image_Meat{
+        border-radius: 12px; /* 將按鈕的邊角設為圓角 */
+        width: 100%; /*按鈕寬度*/
+        padding-bottom: 66.67%; /*按鈕高度*/
+        background-image: url("{% static 'Meat.png' %}");
+        background-position: center; /*按鈕背景位置*/
+        border: 1px solid #000; /*按鈕邊框*/
+        position: relative; /*按鈕的位置*/
+        border: none; /*按鈕邊框*/
+        display: inline-block; /*按鈕的顯示方式*/
+        transition-duration: 0.4s; /*確定懸停的速度*/
+        cursor: pointer; /*改變滑鼠*/
+      }
+
+      .image_Greet{
+        border-radius: 12px; /* 將按鈕的邊角設為圓角 */
+        width: 100%; /*按鈕寬度*/
+        padding-bottom: 66.67%; /*按鈕高度*/
+        background-image: url("{% static 'Greet.png' %}");
+        background-position: center; /*按鈕背景位置*/
+        border: 1px solid #000; /*按鈕邊框*/
+        position: relative; /*按鈕的位置*/
+        border: none; /*按鈕邊框*/
+        display: inline-block; /*按鈕的顯示方式*/
+        transition-duration: 0.4s; /*確定懸停的速度*/
+        cursor: pointer; /*改變滑鼠*/
+      }
+
+      .image_Leisure{
+        border-radius: 12px; /* 將按鈕的邊角設為圓角 */
+        width: 100%; /*按鈕寬度*/
+        padding-bottom: 66.67%; /*按鈕高度*/
+        background-image: url("{% static 'Leisure.png' %}");
+        background-position: center; /*按鈕背景位置*/
+        border: 1px solid #000; /*按鈕邊框*/
+        position: relative; /*按鈕的位置*/
+        border: none; /*按鈕邊框*/
+        display: inline-block; /*按鈕的顯示方式*/
+        transition-duration: 0.4s; /*確定懸停的速度*/
+        cursor: pointer; /*改變滑鼠*/
+      }
+
+      .image_Relation{
+        border-radius: 12px; /* 將按鈕的邊角設為圓角 */
+        width: 100%; /*按鈕寬度*/
+        padding-bottom: 66.67%; /*按鈕高度*/
+        background-image: url("{% static 'Relation.png' %}");
+        background-position: center; /*按鈕背景位置*/
+        border: 1px solid #000; /*按鈕邊框*/
+        position: relative; /*按鈕的位置*/
+        border: none; /*按鈕邊框*/
+        display: inline-block; /*按鈕的顯示方式*/
+        transition-duration: 0.4s; /*確定懸停的速度*/
+        cursor: pointer; /*改變滑鼠*/
       }
       
       .item p {
@@ -54,23 +114,23 @@
   <body>
     <div class="container">
       <div class="item">
-        <a href="{% url 'testClass' %}"><button class="image-button" aria-label="上課日常"></button></a>
+        <a href="{% url 'testClass' %}"><button class="image_Class" aria-label="上課日常"></button></a>
         <p>上課日常</p>
       </div>
       <div class="item">
-        <a href="{% url 'testGreet' %}"><button class="image-button" aria-label="日常問候"></button></a>
+        <a href="{% url 'testGreet' %}"><button class="image_Greet" aria-label="日常問候"></button></a>
         <p>日常問候</p>
       </div>
       <div class="item">
-        <a href="{% url 'testMeat' %}"><button class="image-button" aria-label="吃飯日常"></button></a>
+        <a href="{% url 'testMeat' %}"><button class="image_Meat" aria-label="吃飯日常"></button></a>
         <p>吃飯交流</p>
       </div>
       <div class="item">
-        <a href="{% url 'testLeisure' %}"><button class="image-button" aria-label="休閒活動"></button></a>
+        <a href="{% url 'testLeisure' %}"><button class="image_Leisure" aria-label="休閒活動"></button></a>
         <p>休閒活動</p>
       </div>
       <div class="item">
-        <a href="{% url 'testRelation' %}"><button class="image-button" aria-label="人際關係"></button></a>
+        <a href="{% url 'testRelation' %}"><button class="image_Relation" aria-label="人際關係"></button></a>
         <p>人際關係</p>
       </div>
     </div>
