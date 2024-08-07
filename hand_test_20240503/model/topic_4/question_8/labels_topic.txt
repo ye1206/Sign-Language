@@ -1,0 +1,7 @@
+你我_right
+划船1_left
+划船1_right
+划船2_left
+划船2_right
+去1_right
+去2_right
