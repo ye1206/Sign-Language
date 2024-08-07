@@ -1,7 +1,0 @@
-你_right
-午_right
-好(打招呼)_right
-安1_left
-安1_right
-安2_left
-安2_right

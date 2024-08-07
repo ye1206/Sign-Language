@@ -1,7 +1,0 @@
-不好_right
-今天1_left
-今天1_right
-今天2_left
-今天2_right
-你_right
-好_right

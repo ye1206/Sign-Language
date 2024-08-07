@@ -1,8 +1,0 @@
-不好_right
-中_left
-中_right
-我_right
-考試1_left
-考試1_right
-考試2_left
-考試2_right

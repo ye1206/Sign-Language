@@ -1,9 +1,0 @@
-去1_right
-去2_right
-我_right
-等一下1_right
-等一下2_right
-運動1_left
-運動1_right
-運動2_left
-運動2_right

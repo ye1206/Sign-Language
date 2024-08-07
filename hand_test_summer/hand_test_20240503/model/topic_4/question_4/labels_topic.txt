@@ -1,8 +1,0 @@
-你_right
-放假1_left
-放假2_right
-時間1_right
-時間2_right
-時間_left
-有沒有1_right
-有沒有2_right
