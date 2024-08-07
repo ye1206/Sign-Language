@@ -8,6 +8,8 @@ django = "*"
 mediapipe = "*"
 opencv-python = "*"
 django-crispy-forms = "*"
+tensorflow = "*"
+pillow = "*"
 
 [dev-packages]
 
