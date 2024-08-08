@@ -8,6 +8,8 @@
 - opencv-python
 - mysqlclient
 - pillow
+- joblib
+- scikit-learn
 - pipenv (optional)
 ## Setup
 ### 建立虛擬環境 (optional)
@@ -16,5 +18,6 @@
 其餘虛擬環境請參考各自開發者文件。
 ### 安裝套件
 安裝上述套件，惟本次專題使用 xampp 作為資料庫媒介，故需確認電腦是否已安裝 xampp 並確實將專案資料夾放入 htdocs 中
+如使用 pipenv，則在 terminal 輸入 `pipenv sync` 即可
 ### 啟動虛擬環境 (optional)
-
+輸入指令 `pipenv shell` 即可啟動虛擬環境
