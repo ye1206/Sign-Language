@@ -1,0 +1,15 @@
+你_right
+參加1_left
+參加1_right
+參加2_left
+參加2_right
+學校1_right
+學校2_right
+學校_left
+有沒有1_right
+有沒有2_right
+活動1_left
+活動1_right
+活動2_left
+活動2_right
+那個人_right

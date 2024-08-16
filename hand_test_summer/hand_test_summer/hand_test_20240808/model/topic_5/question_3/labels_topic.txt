@@ -1,0 +1,14 @@
+一起1_left
+一起1_right
+一起2_left
+一起2_right
+不要1_left
+不要1_right
+不要2_left
+不要2_right
+你_right
+我_right
+要1_left
+要1_right
+要2_left
+要2_right
