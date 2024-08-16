@@ -1,0 +1,6 @@
+八卦1_right
+八卦2_right
+八卦_left
+告訴你1_right
+告訴你2_right
+告訴你_left

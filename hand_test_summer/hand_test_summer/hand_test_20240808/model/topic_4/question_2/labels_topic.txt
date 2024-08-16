@@ -1,0 +1,9 @@
+不好_right
+好_right
+看起來1_right
+看起來2_right
+這個_right
+電影1_left
+電影1_right
+電影2_left
+電影2_right

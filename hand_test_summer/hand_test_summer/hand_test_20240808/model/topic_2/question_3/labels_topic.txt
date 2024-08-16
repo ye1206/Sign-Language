@@ -1,0 +1,13 @@
+不要1_left
+不要1_right
+不要2_left
+不要2_right
+你_right
+回_left
+回_right
+家_left
+家_right
+要1_left
+要1_right
+要2_left
+要2_right
