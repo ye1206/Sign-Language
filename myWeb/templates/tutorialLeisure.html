@@ -1,194 +1,398 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>休閒活動</title>
-    <style media="screen">
-      *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Arial", sans-serif;
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上課日常</title>
+  <style media="screen">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Arial", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #c9d4a3;
+      color: white;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .side-bar {
+      background: #1b1a1b;
+      backdrop-filter: blur(15px);
+      width: 250px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      overflow-y: auto;
+      transition: 0.6s ease;
+      transition-property: left;
+    }
+
+    .side-bar::-webkit-scrollbar {
+      width: 0px;
+    }
+
+    .side-bar.active {
+      left: 0;
+    }
+
+    .side-bar .menu {
+      width: 100%;
+      margin-top: 40px;
+    }
+
+    .side-bar .menu .item {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .side-bar .menu .item a {
+      color: #fff;
+      font-size: 16px;
+      text-decoration: none;
+      display: block;
+      padding: 15px 30px;
+      line-height: 60px;
+    }
+
+    .side-bar .menu .item a:hover {
+      background: #33363a;
+      transition: 0.3s ease;
+    }
+
+    .side-bar .menu .item i {
+      margin-right: 15px;
+    }
+
+    .side-bar .menu .item a .dropdown {
+      position: absolute;
+      right: 0;
+      margin: 20px;
+      transition: 0.3s ease;
+    }
+
+    .side-bar .menu .item .sub-menu {
+      background: #262627;
+      display: none;
+    }
+
+    .side-bar .menu .item .sub-menu a {
+      padding-left: 80px;
+    }
+
+    .rotate {
+      transform: rotate(90deg);
+    }
+
+    .close-btn {
+      position: absolute;
+      color: #fff;
+      font-size: 23px;
+      right: 0px;
+      margin: 15px;
+      cursor: pointer;
+    }
+
+    .menu-btn {
+      position: absolute;
+      color: rgb(0, 0, 0);
+      font-size: 35px;
+      margin: 25px;
+      cursor: pointer;
+    }
+
+    .main {
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0 0 0;
+    }
+
+    header {
+      background: #33363a;
+    }
+
+    .title {
+      width: 100%;
+      max-width: 854px;
+      margin: 0 auto;
+    }
+
+    .caption {
+      width: 100%;
+      max-width: 854px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    /* Video Player*/
+    .vid-main-wrapper {
+      position: absolute;
+      width: 100%;
+      max-width: 750px;
+      min-width: 440px;
+      margin: 0 auto;
+      top: 55%;
+      /* 調整 player 的位置 */
+      left: 55%;
+      /* 調整 player 的位置 */
+      transform: translate(-50%, -50%);
+      /* 調整 player 的位置 */
+    }
+
+    /*  VIDEO PLAYER CONTAINER
+ 		############################### */
+    .vid-container {
+      position: relative;
+      padding-bottom: 52%;
+      padding-top: 30px;
+      height: 0;
+      width: 70%;
+      float: left;
+    }
+
+    .vid-container iframe,
+    .vid-container object,
+    .vid-container embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 360px;
+    }
+
+
+    /*  VIDEOS PLAYLIST 
+ 		############################### */
+    .vid-list-container {
+      width: 30%;
+      height: 360px;
+      overflow: hidden;
+      float: right;
+    }
+
+    .vid-list-container:hover,
+    .vid-list-container:focus {
+      overflow-y: auto;
+    }
+
+    ol#vid-list {
+      margin: 0;
+      padding: 0;
+      background: #222;
+    }
+
+    ol#vid-list li {
+      list-style: none;
+    }
+
+    ol#vid-list li a {
+      text-decoration: none;
+      background-color: #222;
+      height: 55px;
+      display: block;
+      padding: 10px;
+      color: #fff;
+    }
+
+    ol#vid-list li a:hover {
+      background-color: #666666
+    }
+
+    .vid-thumb {
+      float: left;
+      margin-bottom: 9px;
+      margin-right: 8px;
+    }
+
+    .active-vid {
+      background: #3A3A3A;
+    }
+
+    #vid-list .desc {
+      color: #CACACA;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 624px) {
+      body {
+        margin: 15px;
       }
 
-      body{
-        min-height: 100vh;
-        background: white;
-        color: white;
-        background-size: cover;
-        background-position: center;
-      }
-
-      .side-bar{
-        background: #1b1a1b;
-        backdrop-filter: blur(15px);
-        width: 250px;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: -250px;
-        overflow-y: auto;
-        transition: 0.6s ease;
-        transition-property: left;
-      }
-    
-      .side-bar::-webkit-scrollbar {
-        width: 0px;
-      }
-    
-      .side-bar.active{
-        left: 0;
-      }
-    
-      .side-bar .menu{
-        width: 100%;
+      .caption {
         margin-top: 40px;
       }
-    
-      .side-bar .menu .item{
-        position: relative;
-        cursor: pointer;
-      }
-    
-      .side-bar .menu .item a{
-        color: #fff;
-        font-size: 16px;
-        text-decoration: none;
-        display: block;
-        padding: 15px 30px;
-        line-height: 60px;
-      }
-    
-      .side-bar .menu .item a:hover{
-        background: #33363a;
-        transition: 0.3s ease;
-      }
-    
-      .side-bar .menu .item i{
-        margin-right: 15px;
-      }
-    
-      .side-bar .menu .item a .dropdown{
-        position: absolute;
-        right: 0;
-        margin: 20px;
-        transition: 0.3s ease;
-      }
-    
-      .side-bar .menu .item .sub-menu{
-        background: #262627;
-        display: none;
-      }
-    
-      .side-bar .menu .item .sub-menu a{
-        padding-left: 80px;
-      }
-    
-      .rotate{
-        transform: rotate(90deg);
-      }
-    
-      .close-btn{
-        position: absolute;
-        color: #fff;
-        font-size: 23px;
-        right:  0px;
-        margin: 15px;
-        cursor: pointer;
-      }
-    
-      .menu-btn{
-        position: absolute;
-        color: rgb(0, 0, 0);
-        font-size: 35px;
-        margin: 25px;
-        cursor: pointer;
-      }
-    
-      .main{
-        height: 500px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 0 0 0;
-      }
-    
-      header{
-        background: #33363a;
+
+      .vid-list-container {
+        padding-bottom: 20px;
       }
 
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <script src="https://kit.fontawesome.com/b2cc8e312f.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <script src="https://kit.fontawesome.com/b2cc8e312f.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
   </head>
-  <body>
 
-    <div class="menu-btn">
-      <i class="fas fa-bars"></i>
-    </div>
+<body>
 
-    <div class="side-bar">
+  <div class="menu-btn">
+    <i class="fas fa-bars"></i>
+  </div>
 
-      <header>
+  <div class="side-bar">
+
+    <header>
       <div class="close-btn">
         <i class="fas fa-times"></i>
       </div>
-        <h1></h1>
+      <h1></h1>
       </header>
-     <div class="menu">
-      <div class="item"><a href="/">
-        <i class="fa-solid fa-house"></i>回首頁</a>
+      <div class="menu">
+      <div class="item"><a href="{%url 'index'%}">
+          <i class="fa-solid fa-house"></i>回首頁</a>
       </div>
-        <div class="item">
-          <a class="sub-btn"><i class="fa-solid fa-film"></i>手語教學<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-            <a href="{% url 'tutorialClass' %}" class="sub-item">上課日常</a>
-            <a href="{% url 'tutorialGreet' %}" class="sub-item">日常問候</a>
-            <a href="{% url 'tutorialMeat' %}" class="sub-item">吃飯交流</a>
-            <a href="{% url 'tutorialLeisure' %}" class="sub-item">休閒活動</a>
-            <a href="{% url 'tutorialRelation' %}" class="sub-item">人際關係</a>
-          </div>
+      <div class="item">
+        <a class="sub-btn"><i class="fa-solid fa-film"></i>手語教學<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="{% url 'tutorialClass' %}" class="sub-item">上課日常</a>
+          <a href="{% url 'tutorialGreet' %}" class="sub-item">日常問候</a>
+          <a href="{% url 'tutorialMeat' %}" class="sub-item">吃飯交流</a>
+          <a href="{% url 'tutorialLeisure' %}" class="sub-item">休閒活動</a>
+          <a href="{% url 'tutorialRelation' %}" class="sub-item">人際關係</a>
         </div>
-        <div class="item">
-          <a class="sub-btn"><i class="fas fa-cogs"></i>手語測驗<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-              <a href="{% url 'testClass' %}" class="sub-item">上課日常</a>
-              <a href="{% url 'testGreet' %}" class="sub-item">日常問候</a>
-              <a href="{% url 'testMeat' %}" class="sub-item">吃飯交流</a>
-              <a href="{% url 'testLeisure' %}" class="sub-item">休閒活動</a>
-              <a href="{% url 'testRelation' %}" class="sub-item">人際關係</a>
-          </div>
-        </div>
-        <div class="item"><a href="#"><i class="fas fa-info-circle"></i>More...</a></div>
       </div>
+      <div class="item">
+        <a class="sub-btn"><i class="fas fa-cogs"></i>手語測驗<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="{% url 'testClass' %}" class="sub-item">上課日常</a>
+          <a href="{% url 'testGreet' %}" class="sub-item">日常問候</a>
+          <a href="{% url 'testMeat' %}" class="sub-item">吃飯交流</a>
+          <a href="{% url 'testLeisure' %}" class="sub-item">休閒活動</a>
+          <a href="{% url 'testRelation' %}" class="sub-item">人際關係</a>
+        </div>
+      </div>
+      <div class="item"><a href="#"><i class="fas fa-info-circle"></i>More...</a></div>
+      </div>
+      </div>
+
+  <div class="vid-main-wrapper clearfix">
+  
+    <!-- THE YOUTUBE PLAYER -->
+    <div class="vid-container">
+      <iframe id="vid_frame" src="https://youtube.com/embed/XEsVXjA9fns?rel=0&showinfo=0&autohide=1" frameborder="0"
+        width="560" height="315"></iframe>
     </div>
+  
+    <!-- THE PLAYLIST -->
+    <div class="vid-list-container">
+      <ol id="vid-list">
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/EitkDktLSHg?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/EitkDktLSHg/default.jpg" /></span>
+            <div class="desc">要一起吃飯嗎?</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/KmAZ5YWFDpM?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/KmAZ5YWFDpM/default.jpg" /></span>
+            <div class="desc">學餐好吃嗎?</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/nhN-gCGeFjs?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/nhN-gCGeFjs/default.jpg" /></span>
+            <div class="desc">這飯好吃嗎?</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://www.youtube.com/embed/HFk_lx66qTU?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/HFk_lx66qTU/default.jpg" /></span>
+            <div class="desc">學餐真的好貴</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/3115W-1ds68?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/3115W-1ds68/default.jpg" /></span>
+            <div class="desc">你是吃素的嗎？</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/nSabQT3qZRA?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/nSabQT3qZRA/default.jpg" /></span>
+            <div class="desc">我都自己在家煮飯</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/iUBk_KbLTIU?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/iUBk_KbLTIU/default.jpg" /></span>
+            <div class="desc">我幾乎每天都外食</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/2Q_M8A8pRfU?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/2Q_M8A8pRfU/default.jpg" /></span>
+            <div class="desc">你晚餐想吃什麼？</div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void();"
+            onClick="document.getElementById('vid_frame').src='https://youtube.com/embed/hr4N5PEhUKc?autoplay=1&rel=0&showinfo=0&autohide=1'">
+            <span class="vid-thumb"><img width=55 src="https://img.youtube.com/vi/hr4N5PEhUKc/default.jpg" /></span>
+            <div class="desc">我還沒有吃早餐</div>
+          </a>
+        </li>
 
-    <section class="main">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/ucHMZFYyBDk?si=k9SPofjd9uyan-fk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </section>
+        </ul>
+        </div>
+        </div>
 
-    <script type="text/javascript">
-      $(document).ready(function(){
-      //jquery for toggle sub menus
-      $('.sub-btn').click(function(){
-        $(this).next('.sub-menu').slideToggle();
-        $(this).find('.dropdown').toggleClass('rotate');
-      });
-
-      //jquery for expand and collapse the sidebar
-      $('.menu-btn').click(function(){
+  <script>
+    $(document).ready(function () {
+      $('.menu-btn').click(function () {
         $('.side-bar').addClass('active');
         $('.menu-btn').css("visibility", "hidden");
       });
 
-      $('.close-btn').click(function(){
+      $('.close-btn').click(function () {
         $('.side-bar').removeClass('active');
         $('.menu-btn').css("visibility", "visible");
       });
-    });
-    </script>
 
-  </body>
-</html> 
+      $('.sub-btn').click(function () {
+        $(this).next('.sub-menu').slideToggle();
+        $(this).find('.dropdown').toggleClass('rotate');
+      });
+    });
+
+  /*JS FOR SCROLLING THE ROW OF THUMBNAILS*/
+  $(document).ready(function () {
+    $('.vid-item').each(function (index) {
+      $(this).on('click', function () {
+        var current_index = index + 1;
+        $('.vid-item .thumb').removeClass('active');
+        $('.vid-item:nth-child(' + current_index + ') .thumb').addClass('active');
+      });
+    });
+    });
+</script>
+
+</body>
+
+</html>
