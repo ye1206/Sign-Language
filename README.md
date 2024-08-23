@@ -23,3 +23,6 @@
 輸入指令 `pipenv shell` 即可啟動虛擬環境。
 ### 啟動專案
 cd 至 `myWeb` 資料夾，並在 terminal 輸入 `pipenv py run manage.py runserver`，當 terminal 出現 **Starting development server at http://127.0.0.1:8000/** 即代表成功啟動 Django。
+## Reference
+https://github.com/HaoyuWang00/Mediapipe-Django-API
+
