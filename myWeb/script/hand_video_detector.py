@@ -4,8 +4,9 @@ import numpy as np
 import joblib
 import time
 from django.core.cache import cache
-from utils.new_put_text import cv2_chinese_text
-
+from .new_put_text import cv2_chinese_text
+from django.conf import settings
+import os
 
 def load_svm_models(topic, current_question_model):
     cache_key = f"model_{topic}_{current_question_model}"
@@ -13,10 +14,13 @@ def load_svm_models(topic, current_question_model):
 
     if cached_model is None:
         try:
-            model_filename = f"model/topic_{topic}/question_{current_question_model}/svm_model_topic.pkl"
-            scaler_filename = f"model/topic_{topic}/question_{current_question_model}/scaler_topic.pkl"
+            model_filename = os.path.join(
+                settings.BASE_DIR, f"script/model/topic_{topic}/question_{current_question_model}/svm_model_topic.pkl")
+            scaler_filename = os.path.join(
+                settings.BASE_DIR, f"script/model/topic_{topic}/question_{current_question_model}/scaler_topic.pkl")
             # Load labels file
-            label_file = f"model/topic_{topic}/question_{current_question_model}/labels_topic.txt"
+            label_file = os.path.join(
+                settings.BASE_DIR, f"script/model/topic_{topic}/question_{current_question_model}/labels_topic.txt")
 
             # Load SVM Model and scaler
             clf = joblib.load(model_filename)
@@ -32,7 +36,12 @@ def load_svm_models(topic, current_question_model):
             cache.set(cache_key, cached_model, timeout=None)
             print(
                 f"Model loaded for topic {topic}, question {current_question_model}")
+        except FileNotFoundError as e:
+            print(
+                f"File not found: {e}")
+            return None, None, None
         except Exception as e:
+            print(f"Error loading model: {e}")
             return None, None, None
     return cached_model
 
@@ -74,16 +83,12 @@ def compute_distances(face_landmarks, landmarks):
         face_landmarks[2].x - landmarks.landmark[0].x) / reference_face_distance
     face_to_hands_Y = (
         face_landmarks[2].y - landmarks.landmark[0].y) / reference_face_distance
-    # Append the calculated distances to the list
     distances.append(face_to_hands_X)
     distances.append(face_to_hands_Y)
 
-    # Calculate the distance between each face landmark and the hand landmarks
     distance_x = face_landmarks[2].x - landmarks.landmark[0].x
     distance_y = face_landmarks[2].y - landmarks.landmark[0].y
-    distance = np.sqrt(distance_x**2 + distance_y**2) / \
-        reference_face_distance
-    # Append the calculated distance to the list
+    distance = np.sqrt(distance_x**2 + distance_y**2) / reference_face_distance
     distances.append(distance)
 
     for pair in pairs:
@@ -94,13 +99,13 @@ def compute_distances(face_landmarks, landmarks):
         distance = np.linalg.norm(p1 - p2) / reference_distance
         distances.append(distance)
 
-        return distances
+    # ensure the number of features returned is 27
+    if len(distances) != 27:
+        print(f"Unexpected number of features: {len(distances)}")
+    return distances
 
 
 def hand_video(flag, frame, topic):
-    # print("1：很高興見到你\n2：今天天氣不錯\n3：最近忙嗎？\n")
-    # topic = input('輸入主題 (1, 2, 3, 4, 5): ')
-
     # Define the list of questions
     # 主題一：上課日常1
     if topic == '1':
@@ -235,6 +240,11 @@ def hand_video(flag, frame, topic):
 
     clf, scaler, labels = load_svm_models(topic, current_question_model)
 
+    # 檢查是否成功加載模型和縮放器
+    if clf is None or scaler is None or labels is None:
+        print("Failed to load model or scaler. (The First Time)")
+        return frame
+
     # For static images:
     # parameters for the detector
     hands = mp_hands.Hands(
@@ -276,8 +286,13 @@ def hand_video(flag, frame, topic):
     image = cv2.flip(frame, 1)
 
     # color format conversion
-    results_hand = hands.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-    results_face = face.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    rgb_frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    results_hand = hands.process(rgb_frame)
+    results_face = face.process(rgb_frame)
+    display_text = ''
+    Answers_text = ''
+    key, (value_left, value_right) = list(
+        questions[current_question_index].items())[0]
 
     # if not results_hand.multi_hand_landmarks and not results_face.detections:
     #     hands.close()
@@ -285,6 +300,18 @@ def hand_video(flag, frame, topic):
     #     return frame
 
     answered_all_questions = False
+
+    if (current_question_index != current_question_model):
+        clf, scaler, labels = load_svm_models(topic, current_question_index)
+        current_question_model = current_question_index
+        if clf is None or scaler is None or labels is None:
+            print("Failed to load model or scaler. (The Second Time)")
+            return frame
+
+    # check if the model and scaler are loaded successfully
+    if clf is None or scaler is None or labels is None:
+        print("Failed to load model or scaler.")
+        return frame
 
     if results_hand.multi_hand_landmarks and results_face.detections:
         left_hand_landmarks = None
@@ -297,49 +324,212 @@ def hand_video(flag, frame, topic):
                 left_hand_landmarks = landmarks
             else:
                 right_hand_landmarks = landmarks
+
+        if left_hand_landmarks and right_hand_landmarks:  # 這塊要再拓寬else 只有單手的情況
+            for detection_face in results_face.detections:
+                face_landmarks = detection_face.location_data.relative_keypoints
+
+                distances_left = compute_distances(
+                    face_landmarks, left_hand_landmarks)
+                distances_right = compute_distances(
+                    face_landmarks, right_hand_landmarks)
+
+                # check if the scaler is None
+                if scaler is None:
+                    print("Scaler is None, cannot transform distances.")
+                    return frame
+
+                if len(distances_left) == 27 and len(distances_right) == 27:
+                    distances_left = scaler.transform([distances_left])
+                    distances_right = scaler.transform([distances_right])
+                else:
+                    print(
+                        f"Unexpected number of features: {len(distances_left)}, {len(distances_right)} two hand")
+                    return frame
+
+                prediction_left = clf.predict(distances_left)
+                prediction_right = clf.predict(distances_right)
+
+                confidence_left = np.max(clf.predict_proba(distances_left))
+                confidence_right = np.max(clf.predict_proba(distances_right))
+
+                label_left = labels[prediction_left[0]]
+                label_right = labels[prediction_right[0]]
+
+                if confidence_left >= 0.80 and confidence_right >= 0.80:
+                    if current_answer_list_index < len(value_left):
+                        expected_label_left = value_left[current_answer_list_index]
+                        expected_label_right = value_right[current_answer_list_index]
+
+                        if label_left == expected_label_left and label_right == expected_label_right:
+                            if not answered_all_questions:
+                                answer_list.append(label_left)
+                                current_answer_list_index += 1
+                        elif current_answer_list_index == len(value_right) and answer_list != value_left:
+                            if not answered_all_questions:
+                                answer_list = []
+                                current_answer_list_index = 0
+                    elif current_answer_list_index > len(value_left):
+                        answer_list = []
+                        current_answer_list_index = 0
+                display_text = f"Left Hand: {label_left}, Right Hand: {label_right}"
+                Answers_text = f"Answers: {str(answer_list)}"
+        else:
+            if left_hand_landmarks or right_hand_landmarks:
+                for detection_face in results_face.detections:
+                    face_landmarks = detection_face.location_data.relative_keypoints
+                    if left_hand_landmarks:
+                        distances = compute_distances(
+                            face_landmarks, left_hand_landmarks)
+                        print(f"distances: {distances}")
+
+                        if len(distances) == 27:
+                            distances = scaler.transform([distances])
+                        else:
+                            print(
+                                f"Unexpected number of features: {len(distances)} one hand")
+                            return frame
+                        # distances = scaler.transform([distances])
+                        prediction = clf.predict(distances)
+                        confidence = np.max(clf.predict_proba(distances))
+                        label_left = labels[prediction[0]]
+                        label_right = "empty"  # 如果只有左手，右手标签为 "空"
+                    else:
+                        distances = compute_distances(
+                            face_landmarks, right_hand_landmarks)
+                        print(f"distances: {distances}")
+
+                        if len(distances) == 27:
+                            distances = scaler.transform([distances])
+                        else:
+                            print(
+                                f"Unexpected number of features: {len(distances)} one hand")
+                            return frame
+                        # distances = scaler.transform([distances])
+                        prediction = clf.predict(distances)
+                        confidence = np.max(clf.predict_proba(distances))
+                        label_left = "empty"  # 如果只有右手，左手标签为 "空"
+                        label_right = labels[prediction[0]]
+
+                    # 檢查 scaler 是否為 None
+                    if scaler is None:
+                        print("Scaler is None, cannot transform distances.")
+                        return frame
+
+                    if confidence >= 0.80:
+                        if current_answer_list_index < len(value_left):
+                            expected_label_left = value_left[current_answer_list_index]
+                            expected_label_right = value_right[current_answer_list_index]
+
+                            if (label_left == expected_label_left and label_right == expected_label_right):
+                                if not answered_all_questions:
+                                    answer_list.append(label_left)
+                                    current_answer_list_index += 1
+                            elif current_answer_list_index == len(value_right) and answer_list != value_left:
+                                if not answered_all_questions:
+                                    answer_list = []
+                                    current_answer_list_index = 0
+                    elif current_answer_list_index > len(value_left):
+                        answer_list = []
+                        current_answer_list_index = 0
+
+                    display_text = f"Left Hand: {label_left}, Right Hand: {label_right}"
+                    Answers_text = f"Answers: {str(answer_list)}"
+
+        print(display_text)
+        print(Answers_text)
+        cv2.putText(image, display_text, (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2, cv2.LINE_AA)
+        cv2.putText(image, Answers_text, (10, 60),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 255, 0), 2, cv2.LINE_AA)
+
+        mp.solutions.drawing_utils.draw_landmarks(
+            image, left_hand_landmarks, mp_hands.HAND_CONNECTIONS)
+        mp.solutions.drawing_utils.draw_landmarks(
+            image, right_hand_landmarks, mp_hands.HAND_CONNECTIONS)
+
+    # 更新顯示文字
+    correct_questions_no_display = f"正確題號: {correct_questions_no}"
+    wrong_questions_no_display = f"錯誤題號: {wrong_questions_no}"
+    if not answered_all_questions:
+        key, (value_left, value_right) = list(
+            questions[current_question_index].items())[0]
+        question_display = f"問題 {current_question_index + 1}: 請比出「{key}」的手語"
+        timer_display = f"剩餘時間: {question_timer_limit - (time.time() - question_timer_start):.1f} 秒"
+        current_wrong_answers_display = f"當前累計錯誤次數: {current_wrong_answers} / {max_wrong_answers}"
     else:
-        hands.close()
-        face.close()
-        return frame
+        question_display = ""
+        timer_display = ""
+        current_wrong_answers_display = ""
+
+    # 更新警告訊息
+    if time.time() - alert_timer_start > alert_timer_limit:
+        alert_message = ""
+        alert_timer_start = time.time()
 
     image_hight, image_width, _ = image.shape
     annotated_image = image.copy()
 
-    for face_landmarks in results_face.detections:
-        mp_drawing.draw_detection(annotated_image, face_landmarks)
+    # 在影像上添加文字
+    annotated_image = cv2_chinese_text(
+        annotated_image, question_display, 10, 30, (0, 255, 0))
+    annotated_image = cv2_chinese_text(
+        annotated_image, timer_display, 400, 30, (0, 255, 0))
+    annotated_image = cv2_chinese_text(
+        annotated_image, alert_message, 10, 80, (0, 255, 0))
+    annotated_image = cv2_chinese_text(
+        annotated_image, correct_questions_no_display, 10, 350, (0, 255, 0))
+    annotated_image = cv2_chinese_text(
+        annotated_image, wrong_questions_no_display, 10, 400, (0, 255, 0))
+    annotated_image = cv2_chinese_text(
+        annotated_image, current_wrong_answers_display, 10, 450, (0, 255, 0))
 
-    if left_hand_landmarks:
-        mp_drawing.draw_landmarks(
-            annotated_image,
-            left_hand_landmarks,
-            mp_hands.HAND_CONNECTIONS,
-            # Blue for left hand
-            mp_drawing.DrawingSpec(
-                color=(0, 0, 255), thickness=2, circle_radius=2),
-            # Green for connections
-            mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=2))
+    # Answer correct
+    if answer_list == value_left and answered_all_questions == False:
+        alert_message = f">>>> 第 {current_question_index_display} 題答對了！ <<<<"
+        alert_timer_start = time.time()
+        current_question_index = (current_question_index + 1) % num_questions
+        question_timer_start = time.time()  # Restart question timer for new question
+        current_wrong_answers = 0
+        answer_list.append(True)
+        correct_questions_no.append(current_question_index_display)
+        current_question_index_display += 1
+        current_answer_list_index = 0
+        answer_list = []
+        print('answer_list:', answer_list)
+        print('correct_questions_no:', correct_questions_no)
+        # 檢查是否已回答完所有題目
+        if current_question_index == 0:
+            answered_all_questions = True
+            print('answered_all_questions:', answered_all_questions)
 
-    if right_hand_landmarks:
-        mp_drawing.draw_landmarks(annotated_image, right_hand_landmarks,
-                                  mp_hands.HAND_CONNECTIONS,
-                                  # Red for right hand
-                                  mp_drawing.DrawingSpec(
-                                      color=(255, 0, 0), thickness=2, circle_radius=2),
-                                  # Green for connections
-                                  mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=2))
+    # Check for question timer expiry and switch question if time is up
+    if time.time() - question_timer_start > question_timer_limit and answered_all_questions == False:
+        question_timer_start = time.time()  # Restart question timer for new question
+        current_wrong_answers += 1
+        current_answer_list_index = 0
+        answer_list = []
+        print('current_wrong_answers:', current_wrong_answers)
+        if current_wrong_answers == max_wrong_answers:
+            # answer_list.append(False)
+            wrong_questions_no.append(current_question_index_display)
+            current_question_index_display += 1
+            current_question_index = (
+                current_question_index + 1) % num_questions
+            current_wrong_answers = 0
+            print('answer_list:', answer_list)
+            print('wrong_questions_no:', wrong_questions_no)
+            # 檢查是否已回答完所有題目
+            if current_question_index == 0:
+                answered_all_questions = True
+                print('answered_all_questions:', answered_all_questions)
 
-    # draw result landmarks
-    # for face_landmarks in results_face.detections:
-    #     print('face_landmarks:', face_landmarks)
-    #     mp_drawing.draw_detection(annotated_image, face_landmarks)
-
-    # for hand_landmarks in results_hand.multi_hand_landmarks:
-    #     print('hand_landmarks:', hand_landmarks)
-    #     hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * image_width
-    #     hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_hight
-
-    #     mp_drawing.draw_landmarks(
-    #         annotated_image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+    # 檢查是否已回答完一輪所有題目
+    if current_question_index == 0 and answered_all_questions:
+        annotated_image = cv2_chinese_text(
+            annotated_image, "測驗結束", 10, 450, (0, 0, 255))
+        annotated_image = cv2_chinese_text(
+            annotated_image, "本次測驗結果 :", 10, 500, (0, 0, 255))
 
     # flip it back and return
     return cv2.flip(annotated_image, 1)

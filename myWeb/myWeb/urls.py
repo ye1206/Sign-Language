@@ -42,5 +42,6 @@ urlpatterns = [
     path('testMeat/stream', views.stream, name='stream'),
     path('testLeisure/stream', views.stream, name='stream'),
     path('testRelation/stream', views.stream, name='stream'),
+
     path('admin/', admin.site.urls),
 ]
