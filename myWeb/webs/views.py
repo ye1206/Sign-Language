@@ -4,6 +4,7 @@ from .models import Login, User
 from django.contrib import messages
 from django.http import StreamingHttpResponse
 from myWeb.camera import VideoCamera, gen
+from django.core.cache import cache
 
 # Create your views here.
 
@@ -92,8 +93,9 @@ def tutorialRelation(request):
 
 
 def stream(request):
+    topic = request.GET.get('topic')
     width, height = 640, 480
-    return StreamingHttpResponse(gen(VideoCamera(), width, height),
+    return StreamingHttpResponse(gen(VideoCamera(topic), width, height),
                                  content_type='multipart/x-mixed-replace; boundary=frame')
 
 def testClass(request):

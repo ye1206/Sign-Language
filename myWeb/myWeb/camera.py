@@ -11,6 +11,7 @@ import numpy as np
 class VideoCamera(object):
 	def __init__(self, topic):  # Open the camera
 		self.video = cv2.VideoCapture(0)  # 0 means the first camera
+		print("Camera works")
 		self.topic = topic
 
 	def __del__(self):  # release the camera
@@ -19,7 +20,7 @@ class VideoCamera(object):
 	def get_frame(self):  # get the frame from the camera
 		success, image = self.video.read()
 		# if success:
-			# call the detection here
+		# call the detection here
 		# image = hand_video(success, image, self.topic)
 		# image = recog(image)
 

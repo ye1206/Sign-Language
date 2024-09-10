@@ -7,6 +7,10 @@ from django.core.cache import cache
 from .new_put_text import cv2_chinese_text
 from django.conf import settings
 import os
+import logging
+import json
+
+logger = logging.getLogger(__name__)
 
 def load_svm_models(topic, current_question_model):
     cache_key = f"model_{topic}_{current_question_model}"

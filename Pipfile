@@ -4,13 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 mediapipe = "*"
 opencv-python = "*"
 django-crispy-forms = "*"
 tensorflow = "*"
 pillow = "*"
 scikit-learn = "*"
+django = "*"
+redis = "*"
 
 [dev-packages]
 
