@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW" dir="ltr">
 
-</html>
-<html>
-
 <head>
-    <title>網站名稱</title>
+    <title>學手語 零距離</title>
     {% load static %}
     <link rel="icon" href="{% static 'icon.svg' %}">
     <style>
@@ -44,15 +41,26 @@
             /* 為按鈕添加邊距，以避免它們相鄰 */
             border-radius: 12px;
             /* 將按鈕的邊角設為圓角 */
+            font-size: 25px;
         }
 
         .relative {
             position: absolute;
             left: 25%;
-            bottom: 25%;
+            bottom: 10%;
+            /* 將 bottom 調整到較低位置 */
             transform: translateX(-50%);
             display: flex;
+            flex-direction: column;
             justify-content: space-around;
+            align-items: center;
+        }
+
+        .text-below-button {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
         }
 
         img {
@@ -73,9 +81,13 @@
     {% load static %}
 
     <div class="relative">
-        <a href="{% url 'tutorial' %}"><button class="button button2"
-                style="font-size:25px;">手語教學</button></a><!--記得更改連結-->
-        <a href="{% url 'test' %}"><button class="button button3" style="font-size:25px;">手語測驗</button></a><!--記得更改連結-->
+        <!-- 手語教學按鈕及文字 -->
+        <a href="{% url 'tutorial' %}"><button class="button button2">手語教學</button></a>
+        <p class="text-below-button">學習手語，掌握基礎溝通技巧</p>
+        
+        <!-- 手語測驗按鈕及文字 -->
+        <a href="{% url 'test' %}"><button class="button button3">手語測驗</button></a>
+        <p class="text-below-button">測驗你的手語能力，看看你學得怎麼樣</p>
     </div>
 
 </body>
