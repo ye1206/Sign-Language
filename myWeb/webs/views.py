@@ -116,3 +116,7 @@ def testLeisure(request):
 
 def testRelation(request):
     return render(request, 'testRelation.html')
+
+
+def instruction(request):
+    return render(request, 'instruction.html')

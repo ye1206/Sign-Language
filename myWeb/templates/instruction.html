@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上課日常</title>
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #c9d4a3;
+            color: white;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .side-bar {
+            background: #1b1a1b;
+            backdrop-filter: blur(15px);
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            overflow-y: auto;
+            transition: 0.6s ease;
+            transition-property: left;
+        }
+
+        .side-bar::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .side-bar.active {
+            left: 0;
+        }
+
+        .side-bar .menu {
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .side-bar .menu .item {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .side-bar .menu .item a {
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            display: block;
+            padding: 15px 30px;
+            line-height: 60px;
+        }
+
+        .side-bar .menu .item a:hover {
+            background: #33363a;
+            transition: 0.3s ease;
+        }
+
+        .side-bar .menu .item i {
+            margin-right: 15px;
+        }
+
+        .side-bar .menu .item a .dropdown {
+            position: absolute;
+            right: 0;
+            margin: 20px;
+            transition: 0.3s ease;
+        }
+
+        .side-bar .menu .item .sub-menu {
+            background: #262627;
+            display: none;
+        }
+
+        .side-bar .menu .item .sub-menu a {
+            padding-left: 80px;
+        }
+
+        .rotate {
+            transform: rotate(90deg);
+        }
+
+        .close-btn {
+            position: absolute;
+            color: #fff;
+            font-size: 23px;
+            right: 0px;
+            margin: 15px;
+            cursor: pointer;
+        }
+
+        .menu-btn {
+            position: absolute;
+            color: rgb(0, 0, 0);
+            font-size: 35px;
+            margin: 25px;
+            cursor: pointer;
+        }
+
+        .main {
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 0 0 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://kit.fontawesome.com/b2cc8e312f.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    {% load static %}
+    <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="side-bar">
+
+        <header>
+            <div class="close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <h1></h1>
+        </header>
+        <div class="menu">
+            <div class="item"><a href="{%url 'index'%}">
+                    <i class="fa-solid fa-house"></i>回首頁</a>
+            </div>
+            <div class="item">
+                <a class="sub-btn"><i class="fa-solid fa-film"></i>手語教學<i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="{% url 'tutorialClass' %}" class="sub-item">上課日常</a>
+                    <a href="{% url 'tutorialGreet' %}" class="sub-item">日常問候</a>
+                    <a href="{% url 'tutorialMeat' %}" class="sub-item">吃飯交流</a>
+                    <a href="{% url 'tutorialLeisure' %}" class="sub-item">休閒活動</a>
+                    <a href="{% url 'tutorialRelation' %}" class="sub-item">人際關係</a>
+                </div>
+            </div>
+            <div class="item">
+                <a class="sub-btn"><i class="fas fa-cogs"></i>手語測驗<i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="{% url 'testClass' %}" class="sub-item">上課日常</a>
+                    <a href="{% url 'testGreet' %}" class="sub-item">日常問候</a>
+                    <a href="{% url 'testMeat' %}" class="sub-item">吃飯交流</a>
+                    <a href="{% url 'testLeisure' %}" class="sub-item">休閒活動</a>
+                    <a href="{% url 'testRelation' %}" class="sub-item">人際關係</a>
+                </div>
+            </div>
+            <div class="item"><a href="{% url 'instruction' %}"><i class="fas fa-info-circle"></i>使用說明</a></div>
+        </div>
+    </div>
+
+    <div class="text_instruction">
+        <h2>使用須知</h2>
+        <p>
+            由於在使用的過程中會需要開始使用者電腦的視訊鏡頭，以採集視訊鏡頭中使用者臉部以及手部座標點，因此使用者在視訊鏡頭上的姿態、周圍環境、光線等，皆可能會對辨識的準確度造成影響。以下是使用者需要注意的事項：
+        </p>
+
+        <h3>1. 環境相關因素</h3>
+        <p>
+            （1）在進行測驗時，使用者處在的環境應保持明亮，且背景應保持整潔，以避免背景擺設影響辨識準確度，例如乾淨牆面會是一個較為適合進行測驗的背景。
+        </p>
+        <img src="{% static 'enviornment.png' %}" alt="測驗環境示意圖">
+
+        <p>
+            （2）當進行辨識時，需確保鏡頭中僅有一人出現。若有其他人進入鏡頭範圍，可能會影響程式準確擷取使用者的手部或臉部動作，進而影響辨識結果的準確性。
+        </p>
+        <img src="{% static 'error_case.png' %}" alt="鏡頭範圍內錯誤狀況示例">
+
+        <h3>2. 測驗須知</h3>
+        <p>
+            （1）在進行測驗之前，使用者應注意鏡頭需放在約與胸口平齊的高度上，使用者頭部應保持於畫面中央偏上位置，不宜太近或太遠，約在80公分至100公分之間，可依據實際情況進行鏡頭高度的調整。
+        </p>
+        <img src="{% static 'distance.png' %}" alt="距離示意圖">
+
+        <p>
+            （2）使用者周圍應預留足夠空間，以便手部能自由向四周伸展並符合測試動作要求。如果在測驗過程中使用者發現離鏡頭過近，影響動作的伸展，應及時調整位置。
+        </p>
+        <img src="{% static 'area.png' %}" alt="伸展空間示意圖">
+
+        <p>
+            （3）在測驗過程中，動作應保持緩慢流暢，過快的移動可能會導致抓取錯誤等問題。如果發現手部參考點消失，請回到上一個動作並調整手部角度，等待程式重新抓取參考點後，再繼續進行測驗。
+        </p>
+        <img src="{% static 'speed.png' %}" alt="移動速度示意圖">
+
+        <p>
+            （4）在辨識過程中，未使用的手不可將手掌露出於鏡頭範圍內。若未使用的手掌出現在鏡頭中，可能會干擾程式的辨識，導致辨識無法順利進行。
+        </p>
+        <img src="{% static 'outside.png' %}" alt="手掌隱藏於鏡頭範圍外示意圖">
+
+        <p>以上為辨識過程前須注意的事項，如果在辨識過程中遇到問題，使用者需參考這些注意事項，尋找可能的原因並採取相應的解決辦法。</p>
+    </div>
+
+    <script src="{% static 'bar.js' %}" type="text/javascript"></script>
+
+</body>
+
+</html>
