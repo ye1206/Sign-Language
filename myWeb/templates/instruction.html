@@ -114,6 +114,48 @@
             align-items: center;
             padding: 0 0 0 0;
         }
+
+        .text_instruction {
+            padding-left: 10%;
+            padding-right: 10%;
+            color: black;
+            padding-top: 3%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: black;
+        }
+
+        h2 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: black;
+        }
+
+        h3 {
+            margin-top: 40px;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: black;
+        }
+
+        p {
+            margin-bottom: 16px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://kit.fontawesome.com/b2cc8e312f.js" crossorigin="anonymous"></script>
@@ -163,12 +205,12 @@
     </div>
 
     <div class="text_instruction">
-        <h2>使用須知</h2>
+        <h1>使用須知</h1>
         <p>
             由於在使用的過程中會需要開始使用者電腦的視訊鏡頭，以採集視訊鏡頭中使用者臉部以及手部座標點，因此使用者在視訊鏡頭上的姿態、周圍環境、光線等，皆可能會對辨識的準確度造成影響。以下是使用者需要注意的事項：
         </p>
 
-        <h3>1. 環境相關因素</h3>
+        <h2>1. 環境相關因素</h2>
         <p>
             （1）在進行測驗時，使用者處在的環境應保持明亮，且背景應保持整潔，以避免背景擺設影響辨識準確度，例如乾淨牆面會是一個較為適合進行測驗的背景。
         </p>
@@ -179,7 +221,7 @@
         </p>
         <img src="{% static 'error_case.png' %}" alt="鏡頭範圍內錯誤狀況示例">
 
-        <h3>2. 測驗須知</h3>
+        <h2>2. 測驗須知</h2>
         <p>
             （1）在進行測驗之前，使用者應注意鏡頭需放在約與胸口平齊的高度上，使用者頭部應保持於畫面中央偏上位置，不宜太近或太遠，約在80公分至100公分之間，可依據實際情況進行鏡頭高度的調整。
         </p>
@@ -201,6 +243,26 @@
         <img src="{% static 'outside.png' %}" alt="手掌隱藏於鏡頭範圍外示意圖">
 
         <p>以上為辨識過程前須注意的事項，如果在辨識過程中遇到問題，使用者需參考這些注意事項，尋找可能的原因並採取相應的解決辦法。</p>
+        <h2>3.辨識過程</h2>
+        <p>測驗畫面示意圖如下，將分為三部份說明畫面文字所代表的意涵</p>
+        <img src="{% static 'capture.png' %}" alt="測驗畫面示意圖">
+        
+        <h3>畫面左上方的題目</h3>
+        <p>這一部分會顯示題目句子以及剩餘時間，使用者須依顯示句子依序比出正確的手勢，且在剩餘時間內完成。</p>
+        <img src="{% static 'upperText.png' %}" alt="題目示意圖">
+        
+        <h3>畫面左上方的手勢提示</h3>
+        <p>顯示使用者目前左手與右手的手勢，在題目詞語中信度最高的結果，即最相近使用者手勢的詞語。若左手右手皆比出正確手勢並且信度高皆高於一定值，判定為詞語正確，且會將正確的字詞顯示在Answers中，以供使用者方便查看，並開始判定下一詞語。
+        </p>
+        <p>例如「考試過了嗎?」，我們分解為："考試1", "考試2", "及格1", "及格2", "有沒有1", "有沒有2"，而使用者若正在辨識考試1，則左手要比出考試1_left，右手要比出考試1_right，才會被判定為正確。</p>
+        <img src="{% static 'lowerText.png' %}" alt="手勢提示示意圖">
+        
+        <h3>畫面左下方的陣列</h3>
+        <p>分為正確題號、錯誤題號以及當前累計錯誤次數，參考第二部分，若成功比出題目中所有詞語，則會判定題目回答正確，但若在時間限制內沒有成功比出全部詞語，則會判定錯誤一次，累計錯誤三次後會判定此題錯誤。</p>
+        <p>題目若回答正確顯示如下方圖片一、二所示。此外，若全部題目都測試過，則測驗結束，使用者可以回到上一頁測試其他主題或是重新整理頁面以重新測試。</p>
+        <img src="{% static 'correctText.png' %}" alt="正確回答示意圖">
+        <img src="{% static 'wrongText.png' %}" alt="錯誤回答示意圖">
+        <img src="{% static 'wrongShow.png' %}" alt="測驗結束示意圖">
     </div>
 
     <script src="{% static 'bar.js' %}" type="text/javascript"></script>
