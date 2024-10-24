@@ -1,0 +1,5 @@
+hand_video_detector.py 的路徑：
+xampp\htdocs\senior_project\signWeb\script
+
+GenSekiGothic-R的路徑：
+xampp\htdocs\senior_project\signWeb
