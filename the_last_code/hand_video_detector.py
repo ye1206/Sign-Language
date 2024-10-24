@@ -215,97 +215,137 @@ def hand_video(flag, frame, topic):
     if topic == '2':
         questions = [
             {"同學早安": [["同學1_left", "同學2_left", "同學3_left", "同學4_left", "empty", "empty", "安1_left", "安2_left"], [
-                "同學1_right", "同學2_right", "同學3_right", "同學4_right", "早1_right", "早2_right", "安1_right", "安2_right"]]},
+                "同學1_right", "同學2_right", "同學3_right", "同學4_right", "早1_right", "早2_right", "安1_right", "安2_right"],
+                ["同學1", "同學2", "同學3", "同學4", "早1", "早2", "安1", "安2"]]},
             {"你看起來很累": [["empty", "empty", "empty", "empty", "empty"], [
-                "看起來1_right", "看起來2_right", "你_right", "累1_right", "累2_right"]]},
+                "看起來1_right", "看起來2_right", "你_right", "累1_right", "累2_right"],
+                ["看起來1", "看起來2", "你", "累1", "累2"]]},
             {"今天天氣好熱": [["今天1_left", "今天2_left", "empty", "empty", "empty", "empty", "熱1_left", "熱2_left"], [
-                "今天1_right", "今天2_right", "天氣1_right", "天氣2_right", "天氣3_right", "天氣4_right", "熱1_right", "熱2_right"]]},
+                "今天1_right", "今天2_right", "天氣1_right", "天氣2_right", "天氣3_right", "天氣4_right", "熱1_right", "熱2_right"],
+                ["今天1", "今天2", "天氣1", "天氣2", "天氣3", "天氣4", "熱1", "熱2"]]},
             {"你要回家嗎？": [["empty", "回_left", "家_left", "要1_left", "要2_left", "不要1_left", "不要2_left"], [
-                "你_right", "回_right", "家_right", "要1_right", "要2_right", "不要1_right", "不要2_right"]]},
+                "你_right", "回_right", "家_right", "要1_right", "要2_right", "不要1_right", "不要2_right"], [
+                "你_right", "回", "家", "要1", "要2", "不要1", "不要2"]]},
             {"很高興見到你": [["empty", "開心1_left", "開心2_left", "見到_left"], [
-                "你我_right", "開心1_right", "開心2_right", "見到_right"]]},
+                "你我_right", "開心1_right", "開心2_right", "見到_right"], [
+                "你我", "開心1", "開心2", "見到"]]},
             {"今天天氣不錯": [["今天1_left", "今天2_left", "empty", "empty", "empty", "empty", "empty", "empty"], [
-                "今天1_right", "今天2_right", "天氣1_right", "天氣2_right", "天氣3_right", "天氣4_right", "不錯1_right", "不錯2_right"]]},
+                "今天1_right", "今天2_right", "天氣1_right", "天氣2_right", "天氣3_right", "天氣4_right", "不錯1_right", "不錯2_right"], [
+                "今天1", "今天2", "天氣1", "天氣2", "天氣3", "天氣4", "不錯1", "不錯2"]]},
             {"最近忙嗎": [["最近_left", "忙1_left", "忙2_left", "empty"],
-                      ["最近_right", "忙1_right", "忙2_right", "你_right"]]},
+                      ["最近_right", "忙1_right", "忙2_right", "你_right"],
+                      ["最近", "忙1", "忙2", "你"]]},
             {"好久不見": [["見1_left", "見2_left", "empty", "empty"], [
-                "見1_right", "見2_right", "很久沒有1_right", "很久沒有2_right"]]},
+                "見1_right", "見2_right", "很久沒有1_right", "很久沒有2_right"], [
+                "見1", "見2", "很久沒有1", "很久沒有2"]]},
             {"你今天好嗎?": [["empty", "今天1_left", "今天2_left", "empty", "empty"], [
-                "你_right", "今天1_right", "今天2_right", "好_right", "不好_right"]]},
+                "你_right", "今天1_right", "今天2_right", "好_right", "不好_right"], [
+                "你", "今天1", "今天2", "好", "不好"]]},
             {"午安你好": [["empty", "安1_left", "安2_left", "empty", "empty"], [
-                "午_right", "安1_right", "安2_right", "你_right", "好(打招呼)_right"]]}
+                "午_right", "安1_right", "安2_right", "你_right", "好(打招呼)_right"], [
+                "午", "安1", "安2", "你", "好(打招呼)"]]}
         ]
     # 主題三：吃飯
     elif topic == '3':
         questions = [
             {"你吃飯了嗎": [["empty", "吃飯_left", "吃飯_left", "empty", "empty"], [
-                "你_right", "吃飯1_right", "吃飯2_right", "有沒有1_right", "有沒有2_right"]]},
+                "你_right", "吃飯1_right", "吃飯2_right", "有沒有1_right", "有沒有2_right"], [
+                "你", "吃飯1", "吃飯2", "有沒有1", "有沒有2"]]},
             {"要一起吃飯嗎": [["一起1_left", "一起2_left", "吃飯_left", "吃飯_left", "empty", "empty", "要1_left", "要2_left", "不要1_left", "不要2_left"], [
-                "一起1_right", "一起2_right", "吃飯1_right", "吃飯2_right", "去1_right", "去2_right", "要1_right", "要2_right", "不要1_right", "不要2_right"]]},
+                "一起1_right", "一起2_right", "吃飯1_right", "吃飯2_right", "去1_right", "去2_right", "要1_right", "要2_right", "不要1_right", "不要2_right"], [
+                "一起1", "一起2", "吃飯1", "吃飯2", "去1", "去2", "要1", "要2", "不要1", "不要2"]]},
             {"學餐好吃嗎": [["學校_left", "學校_left", "學校_left", "吃飯_left", "吃飯_left", "empty", "empty", "empty", "empty", "empty", "empty", "empty"], [
-                "學校1_right", "學校2_right", "學校1_right", "吃飯1_right", "吃飯2_right", "地方1_right", "地方2_right", "好吃1_right", "好吃2_right", "好吃3_right", "有沒有1_right", "有沒有2_right"]]},
+                "學校1_right", "學校2_right", "學校1_right", "吃飯1_right", "吃飯2_right", "地方1_right", "地方2_right", "好吃1_right", "好吃2_right", "好吃3_right", "有沒有1_right", "有沒有2_right"], [
+                "學校1", "學校2", "學校1", "吃飯1", "吃飯2", "地方1", "地方2", "好吃1", "好吃2", "好吃3", "有沒有1", "有沒有2"]]},
             {"這飯好吃嗎": [["empty", "empty", "empty", "empty", "empty"], [
-                "這個_right", "吃飯1_right", "吃飯2_right", "好_right", "不好_right"]]},
+                "這個_right", "吃飯1_right", "吃飯2_right", "好_right", "不好_right"], [
+                "這個", "吃飯1", "吃飯2", "好", "不好"]]},
             {"學餐真的好貴": [["學校_left", "學校_left", "學校_left", "吃飯_left", "吃飯_left", "empty", "empty", "貴_left", "貴_left", "empty", "empty"], [
-                "學校1_right", "學校2_right", "學校1_right", "吃飯1_right", "吃飯2_right", "地方1_right", "地方2_right", "貴1_right", "貴2_right", "很1_right", "很2_right"]]},
+                "學校1_right", "學校2_right", "學校1_right", "吃飯1_right", "吃飯2_right", "地方1_right", "地方2_right", "貴1_right", "貴2_right", "很1_right", "很2_right"], [
+                "學校1", "學校2", "學校1", "吃飯1", "吃飯2", "地方1", "地方2", "貴1", "貴2", "很1", "很2"]]},
             {"你是吃素的嗎": [["empty", "吃飯_left", "吃飯_left", "素_left"],
-                        ["你_right", "吃飯1_right", "吃飯2_right", "素_right"]]},
+                        ["你_right", "吃飯1_right", "吃飯2_right", "素_right"],
+                        ["你", "吃飯1", "吃飯2", "素"]]},
             {"我都自己在家煮飯": [["empty", "家_left", "裡_left", "裡_left", "煮_left", "煮_left", "煮_left", "煮_left", "菜1_left", "菜2_left"], [
-                "我_right", "家_right", "裡1_right", "裡2_right", "煮1_right", "煮2_right", "煮1_right", "煮2_right", "菜1_right", "菜2_right"]]},
+                "我_right", "家_right", "裡1_right", "裡2_right", "煮1_right", "煮2_right", "煮1_right", "煮2_right", "菜1_right", "菜2_right"], [
+                "我", "家", "裡1", "裡2", "煮1", "煮2", "煮1", "煮2", "菜1", "菜2"]]},
             {"我幾乎每天都外食": [["empty", "常常1_left", "常常2_left", "常常1_left", "每天_left", "每天_left", "外面_left", "外面_left", "吃飯_left", "吃飯_left"], [
-                "我_right", "常常1_right", "常常2_right", "常常1_right", "每天1_right", "每天2_right", "外面1_right", "外面2_right", "吃飯1_right", "吃飯2_right"]]},
+                "我_right", "常常1_right", "常常2_right", "常常1_right", "每天1_right", "每天2_right", "外面1_right", "外面2_right", "吃飯1_right", "吃飯2_right"], [
+                "我", "常常1", "常常2", "常常1", "每天1", "每天2", "外面1", "外面2", "吃飯1", "吃飯2"]]},
             {"你晚餐想吃什麼": [["empty", "晚上1_left", "晚上2_left", "empty", "empty", "empty", "empty", "empty", "empty"], [
-                "你_right", "晚上1_right", "晚上2_right", "想1_right", "想2_right", "吃飯1_right", "吃飯2_right", "什麼1_right", "什麼2_right"]]},
+                "你_right", "晚上1_right", "晚上2_right", "想1_right", "想2_right", "吃飯1_right", "吃飯2_right", "什麼1_right", "什麼2_right"], [
+                "你", "晚上1", "晚上2", "想1", "想2", "吃飯1", "吃飯2", "什麼1", "什麼2"]]},
             {"我還沒吃早餐": [["empty", "empty", "empty", "empty", "empty", "吃飯_left", "吃飯_left", "empty", "empty"], [
-                "我_right", "吃飯1_right", "吃飯2_right", "早餐(早)1_right", "早餐(早)2_right", "吃飯1_right", "吃飯2_right", "沒有1_right", "沒有2_right"]]}
+                "我_right", "吃飯1_right", "吃飯2_right", "早餐(早)1_right", "早餐(早)2_right", "吃飯1_right", "吃飯2_right", "沒有1_right", "沒有2_right"], [
+                "我", "吃飯1", "吃飯2", "早餐(早)1", "早餐(早)2", "吃飯1", "吃飯2", "沒有1", "沒有2"]]}
         ]
     # 主題四：假日休閒
     elif topic == '4':
         questions = [
             {"一起去運動吧!": [["一起1_left", "一起2_left", "運動1_left", "運動2_left", "運動1_left", "運動2_left", "empty", "empty", "要1_left", "要2_left", "不要1_left", "不要2_left"], [
-                "一起1_right", "一起2_right", "運動1_right", "運動2_right", "運動1_right", "運動2_right", "去1_right", "去2_right", "要1_right", "要2_right", "不要1_right", "不要2_right"]]},
+                "一起1_right", "一起2_right", "運動1_right", "運動2_right", "運動1_right", "運動2_right", "去1_right", "去2_right", "要1_right", "要2_right", "不要1_right", "不要2_right"], [
+                "一起1", "一起2", "運動1", "運動2", "運動1", "運動2", "去1", "去2", "要1", "要2", "不要1", "不要2"]]},
             {"要一起去學校嗎?": [["一起1_left", "一起2_left", "empty", "empty", "學校_left", "學校_left", "學校_left", "要1_left", "要2_left", "不要1_left", "不要2_left"], [
-                "一起1_right", "一起2_right", "去1_right", "去2_right", "學校1_right", "學校2_right", "學校1_right", "要1_right", "要2_right", "不要1_right", "不要2_right"]]},
+                "一起1_right", "一起2_right", "去1_right", "去2_right", "學校1_right", "學校2_right", "學校1_right", "要1_right", "要2_right", "不要1_right", "不要2_right"], [
+                "一起1", "一起2", "去1", "去2", "學校1", "學校2", "學校1", "要1", "要2", "不要1", "不要2"]]},
             {"那部電影好看嗎?": [["empty", "電影1_left", "電影2_left", "empty", "empty", "empty", "empty"], [
-                "這個_right", "電影1_right", "電影2_right", "看起來1_right", "看起來2_right", "好_right", "不好_right"]]},
+                "這個_right", "電影1_right", "電影2_right", "看起來1_right", "看起來2_right", "好_right", "不好_right"], [
+                "這個", "電影1", "電影2", "看起來1", "看起來2", "好", "不好"]]},
             {"我假日要去打工": [["放假1_left", "empty", "empty", "要1_left", "要2_left", "empty", "empty", "工作_left", "工作_left", "工作_left", "工作_left"], [
-                "empty", "放假2_right", "我_right", "要1_right", "要2_right", "去1_right", "去2_right", "工作1_right", "工作2_right", "工作1_right", "工作2_right"]]},
+                "empty", "放假2_right", "我_right", "要1_right", "要2_right", "去1_right", "去2_right", "工作1_right", "工作2_right", "工作1_right", "工作2_right"], [
+                "放假1", "放假2", "我", "要1", "要2", "去1", "去2", "工作1", "工作2", "工作1", "工作2"]]},
             {"你假日有空嗎?": [["放假1_left", "empty", "empty", "時間_left", "時間_left", "empty", "empty"], [
-                "empty", "放假2_right", "你_right", "時間1_right", "時間2_right", "有沒有1_right", "有沒有2_right"]]},
+                "empty", "放假2_right", "你_right", "時間1_right", "時間2_right", "有沒有1_right", "有沒有2_right"], [
+                "放假1", "放假2", "你", "時間1", "時間2", "有沒有1", "有沒有2"]]},
             {"你有參加學校的那個活動嗎?": [["empty", "參加1_left", "參加2_left", "學校_left", "學校_left", "學校_left", "empty", "活動1_left", "活動2_left", "empty", "empty"], [
-                "你_right", "參加1_right", "參加2_right", "學校1_right", "學校2_right", "學校1_right", "那個人_right", "活動1_right", "活動2_right", "有沒有1_right", "有沒有2_right"]]},
+                "你_right", "參加1_right", "參加2_right", "學校1_right", "學校2_right", "學校1_right", "那個人_right", "活動1_right", "活動2_right", "有沒有1_right", "有沒有2_right"], [
+                "你", "參加1", "參加2", "學校1", "學校2", "學校1", "那個人", "活動1", "活動2", "有沒有1", "有沒有2"]]},
             {"學校今年有舉辦健行": [["今天1_left", "今天2_left", "今年3_left", "今年3_left", "今年3_left", "學校_left", "學校_left", "學校_left", "empty", "empty", "empty", "empty", "empty", "empty"], [
-                "今天1_right", "今天2_right", "今年3_right", "今年4_right", "今年3_right", "學校1_right", "學校2_right", "學校1_right", "有1_right", "有2_right", "健行1_right", "健行2_right", "健行1_right", "健行2_right"]]},
+                "今天1_right", "今天2_right", "今年3_right", "今年4_right", "今年3_right", "學校1_right", "學校2_right", "學校1_right", "有1_right", "有2_right", "健行1_right", "健行2_right", "健行1_right", "健行2_right"], [
+                "今天", "今天2", "今年3", "今年4", "今年3", "學校1", "學校2", "學校1", "有1", "有2", "健行1", "健行2", "健行1", "健行2"]]},
             {"我等一下要去運動": [["empty", "empty", "empty", "empty", "empty", "運動1_left", "運動2_left", "運動1_left", "運動2_left"], [
-                "我_right", "等一下1_right", "等一下2_right", "去1_right", "去2_right", "運動1_right", "運動2_right", "運動1_right", "運動2_right"]]},
+                "我_right", "等一下1_right", "等一下2_right", "去1_right", "去2_right", "運動1_right", "運動2_right", "運動1_right", "運動2_right"], [
+                "我", "等一下1", "等一下2", "去1", "去2", "運動1", "運動2", "運動1", "運動2"]]},
             {"我們去划船": [["empty", "empty", "empty", "划船1_left", "划船2_left"], [
-                "你我_right", "去1_right", "去2_right", "划船1_right", "划船2_right"]]},
+                "你我_right", "去1_right", "去2_right", "划船1_right", "划船2_right"], [
+                "你我", "去1", "去2", "划船1", "划船2"]]},
             {"我會參加運動會": [["empty", "會不會_left", "參加1_left", "參加2_left", "運動1_left", "運動2_left", "empty"], [
-                "我_right", "會不會1_right", "參加1_right", "參加2_right", "運動1_right", "運動2_right", "會_right"]]}
+                "我_right", "會不會1_right", "參加1_right", "參加2_right", "運動1_right", "運動2_right", "會_right"], [
+                "我", "會不會1", "參加1", "參加2", "運動1", "運動2", "會"]]}
         ]
     # 主題五：人際關係
     elif topic == '5':
         questions = [
             {"你認識那個人嗎?": [["empty", "empty", "empty", "empty", "empty"], [
-                "那個人_right", "你_right", "知道1_right", "知道2_right", "嗎_right"]]},
+                "那個人_right", "你_right", "知道1_right", "知道2_right", "嗎_right"], [
+                "那個人", "你", "知道1", "知道2", "嗎"]]},
             {"他跟我是同一個小組的": [["empty", "一起1_left", "一起2_left", "工作_left", "工作_left", "組1_left", "組2_left"], [
-                "他我_right", "一起1_right", "一起2_right", "工作1_right", "工作2_right", "組1_right", "組2_right"]]},
+                "他我_right", "一起1_right", "一起2_right", "工作1_right", "工作2_right", "組1_right", "組2_right"], [
+                "他我", "一起1", "一起2", "工作1", "工作2", "組1", "組2"]]},
             {"那個人好帥": [["empty", "empty", "empty", "empty", "empty"], [
-                "那個人_right", "看起來1_right", "看起來2_right", "不錯1_right", "不錯2_right"]]},
+                "那個人_right", "看起來1_right", "看起來2_right", "不錯1_right", "不錯2_right"], [
+                "那個人", "看起來1", "看起來2", "不錯1", "不錯2"]]},
             {"你要跟我一組嗎?": [["empty", "empty", "一起1_left", "一起2_left", "要1_left", "要2_left", "不要1_left", "不要2_left"], [
-                "你_right", "我_right", "一起1_right", "一起2_right", "要1_right", "要2_right", "不要1_right", "不要2_right"]]},
+                "你_right", "我_right", "一起1_right", "一起2_right", "要1_right", "要2_right", "不要1_right", "不要2_right"], [
+                "你", "我", "一起1", "一起2", "要1", "要2", "不要1", "不要2"]]},
             {"他們倆之間有發生什麼事嗎?": [["empty", "發生1_left", "發生2_left", "發生3_left", "empty", "empty"], [
-                "他們倆_right", "發生1_right", "發生2_right", "發生3_right", "什麼1_right", "什麼2_right"]]},
+                "他們倆_right", "發生1_right", "發生2_right", "發生3_right", "什麼1_right", "什麼2_right"], [
+                "他們倆", "發生1", "發生2", "發生3", "什麼1", "什麼2"]]},
             {"他們在一起了": [["empty", "empty", "變2_left", "情侶1_left", "情侶2_left", "empty", "empty"], [
-                "他們倆_right", "變1_right", "empty", "情侶1_right", "情侶2_right", "情侶3_right", "情侶4_right"]]},
+                "他們倆_right", "變1_right", "empty", "情侶1_right", "情侶2_right", "情侶3_right", "情侶4_right"], [
+                "他們倆", "變1", "變2", "情侶1", "情侶2", "情侶3", "情侶4"]]},
             {"我跟你說一則八卦": [["告訴你_left", "告訴你_left", "empty", "八卦_left"], [
-                "告訴你1_right", "告訴你2_right", "八卦1_right", "八卦2_right"]]},
+                "告訴你1_right", "告訴你2_right", "八卦1_right", "八卦2_right"], [
+                "告訴你1", "告訴你2", "八卦1", "八卦2"]]},
             {"我們之間有誤解": [["empty", "empty", "empty", "誤會1_left", "誤會2_left", "empty", "empty"], [
-                "我們1_right", "我們2_right", "我們3_right", "誤會1_right", "誤會2_right", "有1_right", "有2_right"]]},
+                "我們1_right", "我們2_right", "我們3_right", "誤會1_right", "誤會2_right", "有1_right", "有2_right"], [
+                "我們1", "我們2", "我們3", "誤會1", "誤會2", "有1", "有2"]]},
             {"我討厭他": [["empty", "empty", "empty", "empty"], [
-                "那個人_right", "我_right", "討厭1_right", "討厭2_right"]]},
+                "那個人_right", "我_right", "討厭1_right", "討厭2_right"], [
+                "那個人", "我", "討厭1", "討厭2"]]},
             {"我喜歡他": [["empty", "empty", "empty", "empty"], [
-                "那個人_right", "我_right", "喜歡1_right", "喜歡2_right"]]}
+                "那個人_right", "我_right", "喜歡1_right", "喜歡2_right"], [
+                "那個人", "我", "喜歡1", "喜歡2"]]}
         ]
 
     current_question_model = 0
